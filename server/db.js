@@ -1,0 +1,280 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const DATA_FILE = path.join(__dirname, 'data.json');
+
+const INITIAL_DATA = {
+  users: [
+    {
+      id: 'usr_arjun',
+      name: 'Arjun Verma',
+      regNo: '12108452',
+      email: 'arjun.verma@lpu.in',
+      phone: '9876543210',
+      hostel: 'BH-4',
+      room: 'Room 312, 3rd Floor',
+      password: 'password123',
+      createdAt: '2026-08-15T10:00:00.000Z',
+    },
+    {
+      id: 'usr_sneha',
+      name: 'Sneha Patel',
+      regNo: '12214589',
+      email: 'sneha.patel@lpu.in',
+      phone: '9812345678',
+      hostel: 'GH-2',
+      room: 'Room 105, Ground Floor',
+      password: 'password123',
+      createdAt: '2026-08-20T11:30:00.000Z',
+    },
+    {
+      id: 'usr_rohit',
+      name: 'Rohit Sharma',
+      regNo: '12019934',
+      email: 'rohit.sharma@lpu.in',
+      phone: '9988776655',
+      hostel: 'BH-2',
+      room: 'Room 408, 4th Floor',
+      password: 'password123',
+      createdAt: '2026-08-25T14:15:00.000Z',
+    },
+    {
+      id: 'usr_priya',
+      name: 'Priya Sharma',
+      regNo: '12301147',
+      email: 'priya.sharma@lpu.in',
+      phone: '9765432190',
+      hostel: 'GH-4',
+      room: 'Room 214, 2nd Floor',
+      password: 'password123',
+      createdAt: '2026-09-01T09:00:00.000Z',
+    }
+  ],
+  products: [
+    {
+      id: 'prod_1',
+      title: 'Official LPU Navy Blue Winter Hoodie (UniMall Edition)',
+      description: 'Super warm fleece inner lining, perfect for harsh Jalandhar/Phagwara winter mornings. Official university merchandise purchased from UniMall. Very rarely worn because of graduating early!',
+      category: 'hoodies',
+      gender: 'unisex',
+      size: 'L',
+      condition: 'Like New (Worn Once/Twice)',
+      originalPrice: 1799,
+      sellingPrice: 649,
+      discountPercent: 64,
+      pickupLocation: 'UniMall Entrance / Food Court',
+      hostelBlock: 'BH-4',
+      images: [
+        'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=800&auto=format&fit=crop&q=80'
+      ],
+      sellerId: 'usr_arjun',
+      sellerName: 'Arjun Verma',
+      sellerPhone: '9876543210',
+      sellerRegNo: '12108452',
+      status: 'available',
+      views: 142,
+      createdAt: '2026-09-02T12:00:00.000Z'
+    },
+    {
+      id: 'prod_2',
+      title: 'Raymond Placement Blazer & Trousers (Charcoal Black)',
+      description: 'Crucial for Placement season, PEP classes, and mock interviews! Tailored fit, single-breasted, crisp wrinkle-free fabric. Used only for 2 campus placement interviews.',
+      category: 'formals',
+      gender: 'men',
+      size: 'L',
+      condition: 'Like New (Worn Once/Twice)',
+      originalPrice: 5499,
+      sellingPrice: 1799,
+      discountPercent: 67,
+      pickupLocation: 'Block 32 Lawn / BH-2 Gate',
+      hostelBlock: 'BH-2',
+      images: [
+        'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80'
+      ],
+      sellerId: 'usr_rohit',
+      sellerName: 'Rohit Sharma',
+      sellerPhone: '9988776655',
+      sellerRegNo: '12019934',
+      status: 'available',
+      views: 210,
+      createdAt: '2026-09-03T15:30:00.000Z'
+    },
+    {
+      id: 'prod_3',
+      title: 'Full Sleeve Cotton Lab Coat (Freshly Washed & Ironed)',
+      description: 'Standard white apron required for Chemistry, Pharmacy, and Biotechnology labs at LPU (Block 28 & 30). In pristine condition, no acid stains or ink marks, all buttons intact.',
+      category: 'labcoats',
+      gender: 'unisex',
+      size: 'M',
+      condition: 'Gently Used',
+      originalPrice: 650,
+      sellingPrice: 220,
+      discountPercent: 66,
+      pickupLocation: 'GH-2 Reception / Security Gate',
+      hostelBlock: 'GH-2',
+      images: [
+        'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&auto=format&fit=crop&q=80'
+      ],
+      sellerId: 'usr_sneha',
+      sellerName: 'Sneha Patel',
+      sellerPhone: '9812345678',
+      sellerRegNo: '12214589',
+      status: 'available',
+      views: 98,
+      createdAt: '2026-09-04T09:15:00.000Z'
+    },
+    {
+      id: 'prod_4',
+      title: 'Zara Heavy Puffer Jacket (Olive Green - Punjab Winter Essential)',
+      description: 'Keeps you completely warm during cold December-January nights on campus. Windproof with detachable hood. Moving out after final semester so selling for cheap!',
+      category: 'jackets',
+      gender: 'men',
+      size: 'XL',
+      condition: 'Gently Used',
+      originalPrice: 4290,
+      sellingPrice: 1299,
+      discountPercent: 70,
+      pickupLocation: 'BH-1 Turnstile Gate',
+      hostelBlock: 'BH-1',
+      images: [
+        'https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1548883354-7622d03aca27?w=800&auto=format&fit=crop&q=80'
+      ],
+      sellerId: 'usr_arjun',
+      sellerName: 'Arjun Verma',
+      sellerPhone: '9876543210',
+      sellerRegNo: '12108452',
+      status: 'available',
+      views: 184,
+      createdAt: '2026-09-04T18:40:00.000Z'
+    },
+    {
+      id: 'prod_5',
+      title: 'Biba Festive Anarkali Kurti & Dupatta Set',
+      description: 'Worn just once during One World Youth Fest. Gorgeous embroidery, breathable rayon cotton fabric. Looks brand new without any imperfections.',
+      category: 'traditional',
+      gender: 'women',
+      size: 'S',
+      condition: 'Brand New (With Tags)',
+      originalPrice: 2899,
+      sellingPrice: 850,
+      discountPercent: 71,
+      pickupLocation: 'UniMall Central Lawn / GH-4 Gate',
+      hostelBlock: 'GH-4',
+      images: [
+        'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80'
+      ],
+      sellerId: 'usr_priya',
+      sellerName: 'Priya Sharma',
+      sellerPhone: '9765432190',
+      sellerRegNo: '12301147',
+      status: 'available',
+      views: 135,
+      createdAt: '2026-09-05T11:20:00.000Z'
+    },
+    {
+      id: 'prod_6',
+      title: 'H&M Relaxed Fit Streetwear Cargo Pants',
+      description: 'Multiple pockets, sturdy material, trending campus aesthetic. Very comfortable for long lecture days in Block 34.',
+      category: 'casuals',
+      gender: 'unisex',
+      size: 'M',
+      condition: 'Gently Used',
+      originalPrice: 2299,
+      sellingPrice: 799,
+      discountPercent: 65,
+      pickupLocation: 'Block 38 / Central Library Steps',
+      hostelBlock: 'BH-5',
+      images: [
+        'https://images.unsplash.com/photo-1517445312882-bc9910d016b7?w=800&auto=format&fit=crop&q=80'
+      ],
+      sellerId: 'usr_rohit',
+      sellerName: 'Rohit Sharma',
+      sellerPhone: '9988776655',
+      sellerRegNo: '12019934',
+      status: 'available',
+      views: 160,
+      createdAt: '2026-09-05T14:10:00.000Z'
+    },
+    {
+      id: 'prod_7',
+      title: 'Red Tape High-Top White Chunky Sneakers',
+      description: 'Very comfortable memory foam insoles, great for walking from BH hostels all the way to Block 55! Clean condition, washed and sanitized.',
+      category: 'footwear',
+      gender: 'men',
+      size: 'UK 8',
+      condition: 'Gently Used',
+      originalPrice: 3899,
+      sellingPrice: 1099,
+      discountPercent: 72,
+      pickupLocation: 'Law Gate Circle / UniMall Point',
+      hostelBlock: 'BH-7',
+      images: [
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&auto=format&fit=crop&q=80'
+      ],
+      sellerId: 'usr_arjun',
+      sellerName: 'Arjun Verma',
+      sellerPhone: '9876543210',
+      sellerRegNo: '12108452',
+      status: 'available',
+      views: 225,
+      createdAt: '2026-09-06T10:00:00.000Z'
+    },
+    {
+      id: 'prod_8',
+      title: 'Warm Fleece Plaid Overshirt (Shacket)',
+      description: 'Trendy flannel overshirt, very cozy for morning lectures. Easy to style with plain white or black tee underneath.',
+      category: 'casuals',
+      gender: 'men',
+      size: 'M',
+      condition: 'Like New (Worn Once/Twice)',
+      originalPrice: 1999,
+      sellingPrice: 599,
+      discountPercent: 70,
+      pickupLocation: 'UniMall Basement Parking / Fountain',
+      hostelBlock: 'BH-3',
+      images: [
+        'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80'
+      ],
+      sellerId: 'usr_rohit',
+      sellerName: 'Rohit Sharma',
+      sellerPhone: '9988776655',
+      sellerRegNo: '12019934',
+      status: 'available',
+      views: 78,
+      createdAt: '2026-09-06T16:45:00.000Z'
+    }
+  ],
+  reservations: []
+};
+
+// Initialize or read data
+export function getDb() {
+  try {
+    if (!fs.existsSync(DATA_FILE)) {
+      fs.writeFileSync(DATA_FILE, JSON.stringify(INITIAL_DATA, null, 2), 'utf-8');
+      return INITIAL_DATA;
+    }
+    const raw = fs.readFileSync(DATA_FILE, 'utf-8');
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error('Error reading data.json, returning initial data', err);
+    return INITIAL_DATA;
+  }
+}
+
+export function saveDb(data) {
+  try {
+    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
+    return true;
+  } catch (err) {
+    console.error('Error writing data.json', err);
+    return false;
+  }
+}
