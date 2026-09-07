@@ -4,6 +4,9 @@
   "description": "Backend API for LPU Student Apparel Marketplace",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js"
